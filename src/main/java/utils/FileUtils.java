@@ -4,14 +4,15 @@ import model.StoreModel;
 
 import java.io.*;
 import java.util.List;
-
-
 /**
  * Created by liyonglin on 2017/10/25.
  */
 public class FileUtils {
     public static final String outPutPath = "G:" + File.separator;
-    public static String fileName = "druginfo.csv";//文件名称
+    /**
+     * 文件名称
+     */
+    private static String fileName = "druginfo.csv";
 
     /**
      * 创建CSV文件
@@ -21,14 +22,14 @@ public class FileUtils {
         BufferedWriter csvWtriter = null;
         try {
             csvFile = new File(outPutPath + fileName);
-            if (!csvFile.exists()) {//不存在则创建
+            //不存在则创建
+            if (!csvFile.exists()) {
                 File parent = csvFile.getParentFile();
                 if (parent != null && !parent.exists()) {
                     parent.mkdirs();
                 }
                 csvFile.createNewFile();
             }
-
             // GB2312使正确读取分隔符","
             csvWtriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(csvFile, true), "GB2312"), 1024);
             writeRow(headList, csvWtriter, csvFile);
@@ -84,52 +85,57 @@ public class FileUtils {
 
                     ///如下是详细地址区划信息
                     case 4:
-                        if (model.areaInfo == null) break;
+                        if (model.areaInfo == null) {
+                            break;
+                        }
                         rowStr = sb.append("\"").append(model.areaInfo.province).append("\",").toString();
                         csvWriter.append(rowStr);
                         break;
                     case 5:
-                        if (model.areaInfo == null) break;
+                        if (model.areaInfo == null) {
+                            break;
+                        }
                         rowStr = sb.append("\"").append(model.areaInfo.city).append("\",").toString();
                         csvWriter.append(rowStr);
                         break;
-
                     case 6:
-                        if (model.areaInfo == null) break;
+                        if (model.areaInfo == null) {
+                            break;
+                        }
                         rowStr = sb.append("\"").append(model.areaInfo.district).append("\",").toString();
                         csvWriter.append(rowStr);
                         break;
                     case 7:
-                        if (model.areaInfo == null) break;
+                        if (model.areaInfo == null) {
+                            break;
+                        }
                         rowStr = sb.append("\"").append(model.areaInfo.town).append("\",").toString();
                         csvWriter.append(rowStr);
                         break;
-
                     case 8:
-                        if (model.areaInfo == null) break;
+                        if (model.areaInfo == null) {
+                            break;
+                        }
                         rowStr = sb.append("\"").append(model.areaInfo.street).append("\",").toString();
                         csvWriter.append(rowStr);
                         break;
-
                     case 9:
-                        if (model.areaInfo == null) break;
+                        if (model.areaInfo == null) {
+                            break;
+                        }
                         rowStr = sb.append("\"").append(model.areaInfo.street_number).append("\",").toString();
                         csvWriter.append(rowStr);
                         break;
                     case 10:
-                        if (model.areaInfo == null) break;
+                        if (model.areaInfo == null) {
+                            break;
+                        }
                         rowStr = sb.append("\"").append(model.areaInfo.street_number).append("\",").toString();
                         csvWriter.append(rowStr);
                         break;
                 }
-
             }
             csvWriter.newLine();
-
         }
-
-
     }
-
-
 }

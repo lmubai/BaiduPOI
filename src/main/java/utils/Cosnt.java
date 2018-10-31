@@ -26,38 +26,37 @@ public class Cosnt {
     public static void main(String[] args) {
 //        整个新疆区域
         List<Rectangle> xinjiang = getCuttedAreaList(new Rectangle(new Point(73.269518, 34.727283), new Point(97.259593, 49.18224)));
-//        List<Rectangle> xinjiang = getCuttedAreaList(new Rectangle(new Point(0.0, 0.0), new Point(2, 4)));
-
-
     }
 
 
     public static List<Rectangle> getCuttedAreaList(Rectangle rectangle) {
         List<Rectangle> list = new ArrayList<Rectangle>(20);
-
-
-        int pieces_long = getPieces(rectangle.leftbottom.longitude, rectangle.rightTop.longitude);        //经度切片数目
-        int pieces_lat = getPieces(rectangle.leftbottom.latitude, rectangle.rightTop.latitude);//纬度度切片数目
+        //经度切片数目
+        int pieces_long = getPieces(rectangle.leftbottom.longitude, rectangle.rightTop.longitude);
+        //纬度度切片数目
+        int pieces_lat = getPieces(rectangle.leftbottom.latitude, rectangle.rightTop.latitude);
 
         for (int i = 1; i <= pieces_lat; i++) {
-            double lb_lat = rectangle.leftbottom.latitude + DIS * (i - 1);//起始纬度
-            double rt_lat = rectangle.leftbottom.latitude + DIS * i;//终止纬度
-            if (rt_lat > rectangle.rightTop.latitude) {//不超过最大纬度
+            //起始纬度
+            double lb_lat = rectangle.leftbottom.latitude + DIS * (i - 1);
+            //终止纬度
+            double rt_lat = rectangle.leftbottom.latitude + DIS * i;
+            //不超过最大纬度
+            if (rt_lat > rectangle.rightTop.latitude) {
                 rt_lat = rectangle.rightTop.latitude;
             }
-
             for (int j = 1; j <= pieces_long; j++) {
-                double lb_long = rectangle.leftbottom.longitude + DIS * (j - 1);//起始经度
-                double rt_long = rectangle.leftbottom.longitude + DIS * j;//终止经度
+                //起始经度
+                double lb_long = rectangle.leftbottom.longitude + DIS * (j - 1);
+                //终止经度
+                double rt_long = rectangle.leftbottom.longitude + DIS * j;
                 if (rt_long > rectangle.rightTop.longitude) {
                     rt_long = rectangle.rightTop.longitude;
                 }
-
                 Rectangle r = new Rectangle(new Point(lb_long, lb_lat), new Point(rt_long, rt_lat));
                 list.add(r);
             }
         }
-
         return list;
     }
 
@@ -66,12 +65,10 @@ public class Cosnt {
 
         double distance = Math.abs(to - from);
 //        if (distance % DIS > 0) {
-//
 //            result = (int) (distance / DIS + 1);
 //        } else if (distance % DIS == 0) {
 //            result = (int) (distance / DIS);
 //        }
-
         result = (int) (distance / DIS + 1);
         return result;
 

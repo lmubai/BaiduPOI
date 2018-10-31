@@ -5,9 +5,11 @@ package model;
  * Created by liyonglin on 2017/10/26.
  */
 public class Area {
+    
     public static final String CHINA = "中国";
 
     public static final String XINJIANG = "新疆维吾尔自治区";
+    public static final String HUBEI = "湖北省";
 
     public static final String WLMQ = "乌鲁木齐市";
     public static final String KLMY = "克拉玛依市";
@@ -20,10 +22,7 @@ public class Area {
     public static final String BETLMG = "博尔塔拉蒙古自治州";
     public static final String BYGL = "巴音郭楞蒙古自治州";
     public static final String KMLSKEKM = "克孜勒苏柯尔克孜自治州";
-
-
     public static final String YL = "伊犁哈萨克自治州";
-
 
     /**
      * 地区综合命名
@@ -49,11 +48,11 @@ public class Area {
     public String town = "";//乡镇
 
     /**
-     * 街道
+     * //街道名（行政区划中的街道层级）
      */
-    public String street = "";//街道名（行政区划中的街道层级）
-
-    public String street_number = "";//街道门牌号
+    public String street = "";
+    //街道门牌号
+    public String street_number = "";
 
 
     @Override

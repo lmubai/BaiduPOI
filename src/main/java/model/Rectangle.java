@@ -1,7 +1,5 @@
 package model;
 
-import model.Point;
-
 /**
  * Created by liyonglin on 2017/10/25.
  * 矩形区域
@@ -10,7 +8,7 @@ public class Rectangle {
     /**
      * 当前区域名，
      */
-    public String currentAreaName="";
+    public String currentAreaName = "";
     public Point leftbottom;
     public Point rightTop;
 
