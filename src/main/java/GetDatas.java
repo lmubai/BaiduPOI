@@ -16,7 +16,7 @@ import static NetConst.URLUtils.sendURLWithParams;
  * Created by liyonglin on 2017/10/24.
  */
 public class GetDatas {
-    public static final String keyword = "村";
+    public static final String keyword = "湖北";
     public static String poiUrl = "http://api.map.baidu.com/place/v2/search";
     public static final int PAGE_SIZE = 20;
     public static int total_count = 0;
@@ -40,7 +40,6 @@ public class GetDatas {
             //四分法切片，切片后进入递归
             double half_long = (lb.longitude + rt.longitude) / 2;
             double half_lat = (lb.latitude + rt.latitude) / 2;
-
             // 新规划出的5个点，
             // 中心点
             Point centerPoint = new Point(half_long, half_lat);
@@ -61,7 +60,6 @@ public class GetDatas {
             model.Rectangle r2 = new model.Rectangle(rectangle.currentAreaName, p1, rt);
             getByBounds(r1);
             getByBounds(r2);
-
         } else {
             //进入数采集，
             int pages = 0;
@@ -73,12 +71,15 @@ public class GetDatas {
             List<StoreModel> storeModelList = new ArrayList<StoreModel>(20);
             System.out.println("**************当前切片区域总数 " + total + "     分页数{" + pages + "}     currentPageIndex" + currentPageIndex + "  " + rectangle.toString());
             for (int i = 0; i < pages; i++) {
-                String pageparam = "?q=" + keyword + "&scope=1&output=json&ak=" + API_KEY + "&page_size=20&bounds=" + leftbottom + "," + righttop + "&page_num=" + currentPageIndex;
-                currentPageIndex++;//开始第二页的请求
-                String r = sendURLWithParams(poiUrl + pageparam);
-                JSONObject page = JSONObject.fromObject(r);
-
-                addPageData(page, storeModelList, rectangle.currentAreaName);
+                try {
+                    String pageparam = "?q=" + keyword + "&scope=1&output=json&ak=" + API_KEY + "&page_size=20&bounds=" + leftbottom + "," + righttop + "&page_num=" + currentPageIndex;
+                    currentPageIndex++;//开始第二页的请求
+                    String r = sendURLWithParams(poiUrl + pageparam);
+                    JSONObject page = JSONObject.fromObject(r);
+                    addPageData(page, storeModelList, rectangle.currentAreaName);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
             //先保存数据
             FileUtils.writeIntoCSV(storeModelList);
