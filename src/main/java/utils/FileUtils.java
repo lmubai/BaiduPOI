@@ -1,5 +1,6 @@
 package utils;
 
+import NetConst.URLUtils;
 import model.StoreModel;
 
 import java.io.*;
@@ -8,12 +9,6 @@ import java.util.List;
  * Created by liyonglin on 2017/10/25.
  */
 public class FileUtils {
-    public static final String outPutPath = "G:" + File.separator;
-    /**
-     * 文件名称
-     */
-    private static String fileName = "hubei.csv";
-
     /**
      * 创建CSV文件
      */
@@ -21,7 +16,7 @@ public class FileUtils {
         File csvFile = null;
         BufferedWriter csvWtriter = null;
         try {
-            csvFile = new File(outPutPath + fileName);
+            csvFile = new File(URLUtils.out_path);
             //不存在则创建
             if (!csvFile.exists()) {
                 File parent = csvFile.getParentFile();

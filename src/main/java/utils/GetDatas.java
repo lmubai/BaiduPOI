@@ -1,10 +1,11 @@
+package utils;
+
 import NetConst.URLUtils;
 import model.Area;
 import model.Point;
 import model.Rectangle;
 import model.StoreModel;
 import net.sf.json.JSONObject;
-import utils.FileUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class GetDatas {
     public static String poiUrl = "http://api.map.baidu.com/place/v2/search";
     public static final int PAGE_SIZE = 20;
     public static int total_count = 0;
+
     public static void getByBounds(Rectangle rectangle) {
         if (rectangle == null) {
             return;
@@ -91,31 +93,39 @@ public class GetDatas {
     public static void addPageData(JSONObject page, List<StoreModel> storeModelList, String currentAreaName) {
         List<JSONObject> stores = page.getJSONArray("results");
         for (int k = 0; k < stores.size(); k++) {
-            StoreModel storeModel = new StoreModel();
-            if (stores.get(k).containsKey("name")) {
-                storeModel.storeName = stores.get(k).getString("name");
-            }
-            if (stores.get(k).containsKey("detail_info")) {
-                storeModel.tag = stores.get(k).getJSONObject("detail_info").getString("tag");
-            }
-            if (stores.get(k).containsKey("location") && stores.get(k).getJSONObject("location").containsKey("lng") && stores.get(k).getJSONObject("location").containsKey("lat")) {
-                storeModel.longitude = stores.get(k).getJSONObject("location").getString("lng");
-                storeModel.latitude = stores.get(k).getJSONObject("location").getString("lat");
-                Area area = getDistinct(storeModel.latitude, storeModel.longitude);
-                //不属于新疆维吾尔
-                if (area == null || !area.province.equals(Area.HUBEI)) {
-                    System.out.println("非湖北地区   ****      " + area.toString() + storeModel.longitude + " , " + storeModel.latitude);
-                    continue;
+            try {
+                StoreModel storeModel = new StoreModel();
+                if (stores.get(k).containsKey("name")) {
+                    storeModel.storeName = stores.get(k).getString("name");
                 }
-                storeModel.areaInfo = area;
-                if (area.formatted_address.length() == 0) {
-                    storeModel.formatted_address = currentAreaName;
-                } else {
-                    storeModel.formatted_address = area.formatted_address;
+                if (stores.get(k).containsKey("detail_info")) {
+                    try {
+                        storeModel.tag = stores.get(k).getJSONObject("detail_info").getString("tag");
+                    }catch (Exception e){
+
+                    }
                 }
+                if (stores.get(k).containsKey("location") && stores.get(k).getJSONObject("location").containsKey("lng") && stores.get(k).getJSONObject("location").containsKey("lat")) {
+                    storeModel.longitude = stores.get(k).getJSONObject("location").getString("lng");
+                    storeModel.latitude = stores.get(k).getJSONObject("location").getString("lat");
+                    Area area = getDistinct(storeModel.latitude, storeModel.longitude);
+                    //不属于新疆维吾尔
+                    if (area == null || !area.province.equals(Area.HUBEI)) {
+                        System.out.println("非湖北地区   ****      " + area.toString() + storeModel.longitude + " , " + storeModel.latitude);
+                        continue;
+                    }
+                    storeModel.areaInfo = area;
+                    if (area.formatted_address.length() == 0) {
+                        storeModel.formatted_address = currentAreaName;
+                    } else {
+                        storeModel.formatted_address = area.formatted_address;
+                    }
+                }
+                storeModelList.add(storeModel);
+                System.out.println("总计数： " + (total_count++) + "     " + storeModel.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            storeModelList.add(storeModel);
-            System.out.println("总计数： " + (total_count++) + "     " + storeModel.toString());
         }
     }
 

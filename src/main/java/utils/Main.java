@@ -1,10 +1,11 @@
+package utils;
+
 import NetConst.URLUtils;
 import model.Area;
 import model.Point;
 import model.Rectangle;
 import model.StoreModel;
 import org.apache.commons.lang.StringUtils;
-import utils.Cosnt;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,28 +17,6 @@ import static utils.FileUtils.writeIntoCSV;
  * Created by liyonglin on 2017/10/26.
  */
 public class Main {
-
-    public static void writeContentToTxt(String content, String filePath) {
-        FileWriter fw = null;
-        try {
-            // 如果文件存在，则追加内容；如果文件不存在，则创建文件
-            // File f = new File("E:\\hubeiCasePenaltyBackup.txt");
-            File f = new File(filePath);
-            fw = new FileWriter(f, true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        PrintWriter pw = new PrintWriter(fw);
-        pw.println(content + "\n");
-        pw.flush();
-        try {
-            fw.flush();
-            pw.close();
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void main(String[] args) throws IOException {
         long startTime = System.currentTimeMillis();
@@ -143,6 +122,26 @@ public class Main {
         rowList.add(header);
         writeIntoCSV(rowList);
     }
-
+    public static void writeContentToTxt(String content, String filePath) {
+        FileWriter fw = null;
+        try {
+            // 如果文件存在，则追加内容；如果文件不存在，则创建文件
+            // File f = new File("E:\\hubeiCasePenaltyBackup.txt");
+            File f = new File(filePath);
+            fw = new FileWriter(f, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        PrintWriter pw = new PrintWriter(fw);
+        pw.println(content + "\n");
+        pw.flush();
+        try {
+            fw.flush();
+            pw.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

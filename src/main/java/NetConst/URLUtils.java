@@ -17,6 +17,7 @@ public class URLUtils {
     public static String keyword = null;
     public static String API_KEY = null;
     public static String task_list = null;
+    public static String out_path = null;
 
     static {
         Properties properties = new Properties();
@@ -25,9 +26,10 @@ public class URLUtils {
             System.out.println(path);
             properties.load(new FileInputStream(path));
             fileName = properties.getProperty("fileName");
-            keyword = properties.getProperty("keyword");
+            keyword = new String(properties.getProperty("keyword").getBytes("iso-8859-1"),"gbk");
             API_KEY = properties.getProperty("API_KEY");
             task_list = properties.getProperty("task_list");
+            out_path=properties.getProperty("out_path");
         } catch (Exception e) {
             e.printStackTrace();
         }
