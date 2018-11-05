@@ -56,10 +56,8 @@ public class FileUtils {
     private static void writeRow(List<StoreModel> row, BufferedWriter csvWriter, File csvFile) throws IOException {
         for (int j = 0; j < row.size(); j++) {
             StoreModel model = row.get(j);
-
-            for (int i = 0; i < 11; i++) {
+            for (int i = 0; i < 12; i++) {
                 StringBuffer sb = new StringBuffer();
-
                 int offset = 0;
                 if (csvFile.length() > 0) {
                     offset = (int) (csvFile.length() - 1);
@@ -131,6 +129,13 @@ public class FileUtils {
                             break;
                         }
                         rowStr = sb.append("\"").append(model.areaInfo.street_number).append("\",").toString();
+                        csvWriter.append(rowStr);
+                        break;
+                    case 11:
+                        if (model.tag == null) {
+                            break;
+                        }
+                        rowStr = sb.append("\"").append(model.tag).append("\",").toString();
                         csvWriter.append(rowStr);
                         break;
                 }

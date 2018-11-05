@@ -9,14 +9,12 @@ import utils.FileUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static NetConst.URLUtils.API_KEY;
 import static NetConst.URLUtils.sendURLWithParams;
 
 /**
- * Created by liyonglin on 2017/10/24.
+ * @author Administrator
  */
 public class GetDatas {
-    public static final String keyword = "湖北";
     public static String poiUrl = "http://api.map.baidu.com/place/v2/search";
     public static final int PAGE_SIZE = 20;
     public static int total_count = 0;
@@ -31,7 +29,7 @@ public class GetDatas {
         //先纬度，再经度
         String righttop = rt.latitude + "," + rt.longitude;
         int currentPageIndex = 0;
-        String poiParam = "?q=" + keyword + "&output=json&ak=" + API_KEY + "&page_size=20&bounds=" + leftbottom + "," + righttop + "&page_num=" + currentPageIndex;
+        String poiParam = "?scope=2&q=" + URLUtils.keyword + "&output=json&ak=" + URLUtils.API_KEY + "&page_size=20&bounds=" + leftbottom + "," + righttop + "&page_num=" + currentPageIndex;
         String result = sendURLWithParams(poiUrl + poiParam);
         JSONObject poiJsonroot = JSONObject.fromObject(result);
         int total = poiJsonroot.getInt("total");
@@ -72,12 +70,12 @@ public class GetDatas {
             System.out.println("**************当前切片区域总数 " + total + "     分页数{" + pages + "}     currentPageIndex" + currentPageIndex + "  " + rectangle.toString());
             for (int i = 0; i < pages; i++) {
                 try {
-                    String pageparam = "?q=" + keyword + "&scope=1&output=json&ak=" + API_KEY + "&page_size=20&bounds=" + leftbottom + "," + righttop + "&page_num=" + currentPageIndex;
+                    String pageparam = "?&q=" + URLUtils.keyword + "&scope=2&output=json&ak=" + URLUtils.API_KEY + "&page_size=20&bounds=" + leftbottom + "," + righttop + "&page_num=" + currentPageIndex;
                     currentPageIndex++;//开始第二页的请求
                     String r = sendURLWithParams(poiUrl + pageparam);
                     JSONObject page = JSONObject.fromObject(r);
                     addPageData(page, storeModelList, rectangle.currentAreaName);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -96,6 +94,9 @@ public class GetDatas {
             StoreModel storeModel = new StoreModel();
             if (stores.get(k).containsKey("name")) {
                 storeModel.storeName = stores.get(k).getString("name");
+            }
+            if (stores.get(k).containsKey("detail_info")) {
+                storeModel.tag = stores.get(k).getJSONObject("detail_info").getString("tag");
             }
             if (stores.get(k).containsKey("location") && stores.get(k).getJSONObject("location").containsKey("lng") && stores.get(k).getJSONObject("location").containsKey("lat")) {
                 storeModel.longitude = stores.get(k).getJSONObject("location").getString("lng");
@@ -116,7 +117,6 @@ public class GetDatas {
             storeModelList.add(storeModel);
             System.out.println("总计数： " + (total_count++) + "     " + storeModel.toString());
         }
-
     }
 
     /**

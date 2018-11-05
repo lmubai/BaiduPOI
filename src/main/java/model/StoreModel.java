@@ -18,21 +18,32 @@ public class StoreModel {
     public String locationDetailURL;
 
     public Area areaInfo = null;
+    public String tag = "";
 
 
     public StoreModel() {
 
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
     @Override
     public String toString() {
-        return "StoreModel{" +
-                "formatted_address='" + formatted_address + '\'' +
-                ", storeName='" + storeName + '\'' +
-                ", longitude='" + longitude + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", locationDetailURL='" + locationDetailURL + '\'' +
-                ", areaInfo=" + areaInfo +
-                '}';
+        final StringBuilder sb = new StringBuilder("StoreModel{");
+        sb.append("formatted_address='").append(formatted_address).append('\'');
+        sb.append(", storeName='").append(storeName).append('\'');
+        sb.append(", longitude='").append(longitude).append('\'');
+        sb.append(", latitude='").append(latitude).append('\'');
+        sb.append(", locationDetailURL='").append(locationDetailURL).append('\'');
+        sb.append(", areaInfo=").append(areaInfo);
+        sb.append(", tag='").append(tag).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

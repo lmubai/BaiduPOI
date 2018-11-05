@@ -1,21 +1,48 @@
 package NetConst;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Properties;
 
 /**
  * Created by liyonglin on 2017/10/26.
  */
 public class URLUtils {
 
+    public static String fileName = null;
+    public static String keyword = null;
+    public static String API_KEY = null;
+    public static String task_list = null;
+
+    static {
+        Properties properties = new Properties();
+        try {
+            String path=URLUtils.class.getClassLoader().getResource("config.properties").toURI().getPath();
+            System.out.println(path);
+            properties.load(new FileInputStream(path));
+            fileName = properties.getProperty("fileName");
+            keyword = properties.getProperty("keyword");
+            API_KEY = properties.getProperty("API_KEY");
+            task_list = properties.getProperty("task_list");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(fileName);
+        System.out.println(keyword);
+        System.out.println(API_KEY);
+        System.out.println(task_list);
+    }
     /**
      * 请求并发量
      */
     public static double concurrentNum = 0.0d;
-    public static String API_KEY = "5K8C4T0cf1xPDDmhFENqGeGZQ3YiVYAs";
 
     public static String geocoder = "http://api.map.baidu.com/geocoder/v2/?output=json&pois=1&ak=" + API_KEY;
 
