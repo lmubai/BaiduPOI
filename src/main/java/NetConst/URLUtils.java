@@ -26,7 +26,7 @@ public class URLUtils {
             System.out.println(path);
             properties.load(new FileInputStream(path));
             fileName = properties.getProperty("fileName");
-            keyword = new String(properties.getProperty("keyword").getBytes("iso-8859-1"),"gbk");
+            keyword = new String(properties.getProperty("keyword").getBytes("iso-8859-1"),"utf-8");
             API_KEY = properties.getProperty("API_KEY");
             task_list = properties.getProperty("task_list");
             out_path=properties.getProperty("out_path");

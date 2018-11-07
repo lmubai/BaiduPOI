@@ -24,7 +24,8 @@ public class Main {
         writeHeader();
         //存取经纬度到txt文本
 //        storeTaskToTXT();
-        List<Rectangle> tasklist = new ArrayList<Rectangle>();
+//        List<Rectangle> tasklist = new ArrayList<Rectangle>();
+        List<Rectangle> tasklist = getTaskList();
         readTaskList(tasklist);
         for (Rectangle rectangle : tasklist) {
             GetDatas.getByBounds(rectangle);
