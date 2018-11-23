@@ -31,7 +31,7 @@ public class GetDatas {
         //先纬度，再经度
         String righttop = rt.latitude + "," + rt.longitude;
         int currentPageIndex = 0;
-        String poiParam = "?scope=2&q=" + URLUtils.keyword + "&output=json&ak=" + URLUtils.API_KEY + "&page_size=20&bounds=" + leftbottom + "," + righttop + "&page_num=" + currentPageIndex;
+        String poiParam = "?scope=2&q=" + URLUtils.keyword + "&output=json&ak=" + URLUtils.API_KEY + "&page_size=20&bounds=" + leftbottom + "," + righttop + "&page_num=" + currentPageIndex + "&tag=" + URLUtils.tag;
         String result = sendURLWithParams(poiUrl + poiParam);
         JSONObject poiJsonroot = JSONObject.fromObject(result);
         int total = poiJsonroot.getInt("total");

@@ -18,6 +18,7 @@ public class URLUtils {
     public static String API_KEY = null;
     public static String task_list = null;
     public static String out_path = null;
+    public static String tag = null;
 
     static {
         Properties properties = new Properties();
@@ -30,6 +31,7 @@ public class URLUtils {
             API_KEY = properties.getProperty("API_KEY");
             task_list = properties.getProperty("task_list");
             out_path=properties.getProperty("out_path");
+            tag=new String(properties.getProperty("tag").getBytes("iso-8859-1"),"utf-8");
         } catch (Exception e) {
             e.printStackTrace();
         }

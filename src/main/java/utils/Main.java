@@ -26,9 +26,13 @@ public class Main {
 //        storeTaskToTXT();
 //        List<Rectangle> tasklist = new ArrayList<Rectangle>();
         List<Rectangle> tasklist = getTaskList();
-        readTaskList(tasklist);
+//        readTaskList(tasklist);
         for (Rectangle rectangle : tasklist) {
-            GetDatas.getByBounds(rectangle);
+            try {
+                GetDatas.getByBounds(rectangle);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         long endTime = System.currentTimeMillis();
         long costTime = endTime - startTime;
@@ -99,7 +103,9 @@ public class Main {
      * @return
      */
     public static List<Rectangle> getTaskList() {
-        List<Rectangle> area = Cosnt.getCuttedAreaList(new Rectangle(new Point(109.133145, 29.22902), new Point(116.271297, 33.33572)));
+        //湖北省
+        List<Rectangle> area = Cosnt.getCuttedAreaList(new Rectangle(new Point(108.130085,29.057139), new Point(116.556046,33.140271)));
+//        List<Rectangle> area = Cosnt.getCuttedAreaList(new Rectangle(new Point(111.085222,30.341331), new Point(111.105919,30.347564)));
         return area;
 
     }
